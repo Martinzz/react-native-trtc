@@ -6,6 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://github.com/Martinzz/react-native-trtc#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Martinzz/react-native-trtc.git"
+  },
   "author": "martin",
   "license": "ISC"
 }

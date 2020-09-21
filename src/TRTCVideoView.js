@@ -1,19 +1,16 @@
-import { View, NativeModules, Platform, requireNativeComponent} from "react-native";
 import {memo} from "react";
-const TRTCVideoView = requireNativeComponent('TRTCVideoView');
+import TRTCVideoView from './TRTCView';
 import PropTypes from 'prop-types';
 const TRTCView = memo((props)=>{
-
     return(
         <TRTCVideoView {...props}/>
     )
 })
-
 TRTCView.propTypes = {
     uid: PropTypes.string, // "0" 代表显示本地视频
     mode: PropTypes.int,
     frontCamera: PropTypes.bool,
-    style: View.any,
+    style: PropTypes.any,
 }
 TRTCView.defaultProps = {
     frontCamera: true,

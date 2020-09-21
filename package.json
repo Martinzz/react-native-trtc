@@ -7,10 +7,23 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "https://github.com/Martinzz/react-native-trtc#readme",
+  "keywords": [
+    "react-native",
+    "react",
+    "trtc",
+    "tencent",
+    "rtc"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Martinzz/react-native-trtc.git"
   },
-  "author": "martin",
-  "license": "ISC"
+  "author": {
+    "name": "Martin",
+    "email": "1062202275@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Martinzz/react-native-trtc/issues"
+  },
+  "license": "MIT"
 }

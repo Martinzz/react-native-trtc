@@ -79,6 +79,11 @@ public class TRTCManager {
         trtcParams.userId = userId;
         trtcParams.roomId = roomId;
         trtcParams.userSig = userSig;
+
+        if(options.hasKey("privateMapKey")){
+            trtcParams.privateMapKey = options.getString("privateMapKey");
+        }
+        
         this.mTRTCCloud.enterRoom(trtcParams, scene);
     }
 

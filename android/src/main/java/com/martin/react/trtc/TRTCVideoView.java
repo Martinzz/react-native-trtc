@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.tencent.trtc.TRTCCloudDef;
 
 
@@ -14,45 +15,41 @@ import com.tencent.trtc.TRTCCloudDef;
  */
 public class TRTCVideoView extends LinearLayout {
 
-    private boolean showLocalVideo;
-    private Integer remoteUid;
+    private boolean frontCamera = true;
+    private TXCloudVideoView surface;
     private int renderMode = TRTCCloudDef.TRTC_VIDEO_RENDER_MODE_FILL;
 
     public TRTCVideoView(Context context) {
         super(context);
+        surface = new TXCloudVideoView(context);
+        addView(surface);
     }
 
-    public TRTCVideoView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public void setFrontCamera(boolean front){
+        this.frontCamera = front;
+        setupVideoView();
     }
 
-
-    public TRTCVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public void setUid(String uid){
+        surface.setUserId(uid);
+        setupVideoView();
     }
 
-    public boolean isShowLocalVideo() {
-        return showLocalVideo;
+    public void setRenderMode(int renderMode){
+        String userId = surface.getUserId();
+        if("0".equals(userId)){
+            TRTCManager.getInstance().mTRTCCloud.setLocalViewFillMode(renderMode);
+        }else{
+            TRTCManager.getInstance().mTRTCCloud.setRemoteViewFillMode(userId, renderMode);
+        }
     }
 
-    public void setShowLocalVideo(boolean showLocalVideo) {
-        this.showLocalVideo = showLocalVideo;
+    private void setupVideoView() {
+        String userId = surface.getUserId();
+        if("0".equals(userId)){
+            TRTCManager.getInstance().mTRTCCloud.startLocalPreview(frontCamera, surface);
+        } else {
+            TRTCManager.getInstance().mTRTCCloud.startRemoteView(userId, surface);
+        }
     }
-
-    public Integer getRemoteUid() {
-        return remoteUid;
-    }
-
-    public void setRemoteUid(Integer remoteUid) {
-        this.remoteUid = remoteUid;
-    }
-
-    public void setRenderMode(int mode){
-        this.renderMode = mode;
-    }
-
-    public int getRenderMode(){
-        return this.renderMode;
-    }
-
 }

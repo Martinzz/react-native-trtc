@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -21,6 +22,8 @@ import com.tencent.trtc.TRTCCloudListener;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.martin.react.trtc.TRTCConst.*;
 
 public class TRTCModule extends ReactContextBaseJavaModule {
     private TRTCCloud mTRTCCloud;
@@ -43,35 +46,45 @@ public class TRTCModule extends ReactContextBaseJavaModule {
     private TRTCCloudListener mRtcEventHandler = new TRTCCloudListener() {
         @Override
         public void onUserVideoAvailable(String userId, boolean available) {
-            if (available) {
-                TRTCManager.getInstance().playRemoteVideo(userId); // 播放远程流
-            } else {
-                TRTCManager.getInstance().stopRemoteVideo(userId); // 停止播放远程流
-            }
-
+            WritableMap map = Arguments.createMap();
+            map.putString("userId", userId);
+            map.putBoolean("available", available);
+            sendEvent(getReactApplicationContext(), TRTC_onUserVideoAvailable, map);
         }
         @Override
         public void onRemoteUserEnterRoom(String userId) {
-
+            WritableMap map = Arguments.createMap();
+            map.putString("userId", userId);
+            sendEvent(getReactApplicationContext(), TRTC_onRemoteUserEnterRoom, map);
         }
 
         @Override
         public void onRemoteUserLeaveRoom(String userId, int reason) {
+            WritableMap map = Arguments.createMap();
+            map.putString("userId", userId);
+            map.putInt("reason", reason);
+            sendEvent(getReactApplicationContext(), TRTC_onRemoteUserLeaveRoom, map);
+        }
 
+        @Override
+        public void onExitRoom(int reason){
+            WritableMap map = Arguments.createMap();
+            map.putInt("reason", reason);
+            sendEvent(getReactApplicationContext(), TRTC_onExitRoom, map);
         }
         // 错误通知监听，错误通知意味着 SDK 不能继续运行
         @Override
         public void onError(int errCode, String errMsg, Bundle extraInfo) {
-            Log.d(TAG, "onError: " + errMsg + "[" + errCode+ "]");
+            WritableMap map = Arguments.createMap();
+            map.putString("message", errMsg);
+            map.putInt("code", errCode);
+            sendEvent(getReactApplicationContext(), TRTC_onError, map);
         }
         @Override
         public void onEnterRoom(long result) {
-            if (result > 0) {
-//                toastTip("进房成功，总计耗时[\(result)]ms")
-                sendEvent(getReactApplicationContext(), "joinSuccess", null);
-            } else {
-//                toastTip("进房失败，错误码[\(result)]")
-            }
+            WritableMap map = Arguments.createMap();
+            map.putDouble("result", result);
+            sendEvent(getReactApplicationContext(), TRTC_onEnterRoom, map);
         }
     };
 
@@ -82,18 +95,13 @@ public class TRTCModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void enterRoom(ReadableMap options) {
-        TRTCManager.getInstance().enterRoom(options);
+    public void enterRoom(ReadableMap options, int scene) {
+        TRTCManager.getInstance().enterRoom(options, scene);
     }
 
     @ReactMethod
     public void switchRole(int role) {
         TRTCManager.getInstance().switchRole(role);
-    }
-
-    @ReactMethod
-    public void startLocalPreview(boolean frontCamera) {
-        TRTCManager.getInstance().startLocalPreview(frontCamera);
     }
 
     @ReactMethod
@@ -115,7 +123,7 @@ public class TRTCModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void destroy() {
-        TRTCCloud.destroySharedInstance();
+        TRTCManager.getInstance().destroy();
     }
 
     private void sendEvent(ReactContext reactContext,

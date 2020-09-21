@@ -1,14 +1,8 @@
 export * from './src/Types';
-import React, { Component } from "react";
-import TRTCVideoView from './src/TRTCVideoView';
-import {View, NativeModules, Platform, requireNativeComponent, NativeEventEmitter} from "react-native";
-const { RTCTencent } = NativeModules;
-const TRTCEventEmitter = new NativeEventEmitter(RTCTencent);
+import TRTCView from './src/TRTCVideoView';
+import TRTCNative from './src/TRTCNative';
 export {
-    TRTCVideoView,
-    TRTCEventEmitter
+    TRTCView,
 };
-
-
-export default RTCTencent;
+export default TRTCNative;
 

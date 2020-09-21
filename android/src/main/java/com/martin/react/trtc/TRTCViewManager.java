@@ -28,29 +28,16 @@ public class TRTCViewManager extends SimpleViewManager<TRTCVideoView> {
     @ReactProp(name = "mode")
     public void setRenderMode(final TRTCVideoView trtcVideoView, int renderMode) {
         trtcVideoView.setRenderMode(renderMode);
-        if(trtcVideoView.isShowLocalVideo()){
-            TRTCManager.getInstance().setLocalViewFillMode(renderMode);
-        }else{
-            TRTCManager.getInstance().setRemoteViewFillMode(String.valueOf(trtcVideoView.getRemoteUid()), renderMode);
-        }
     }
 
-    @ReactProp(name = "showLocalVideo")
-    public void setShowLocalVideo(final TRTCVideoView trtcVideoView, boolean showLocalVideo) {
-        trtcVideoView.setShowLocalVideo(showLocalVideo);
-        if (showLocalVideo) {
-            videoView = TRTCManager.getInstance().setupLocalVideo();
-            trtcVideoView.addView(videoView);
-        }
+    @ReactProp(name = "frontCamera")
+    public void setFrontCamera(final TRTCVideoView trtcVideoView, boolean frontCamera) {
+        trtcVideoView.setFrontCamera(frontCamera);
     }
 
-    @ReactProp(name = "remoteUid")
-    public void setRemoteUid(final TRTCVideoView trtcVideoView, final int remoteUid) {
-        trtcVideoView.setRemoteUid(remoteUid);
-        if (remoteUid != 0) {
-            videoView = TRTCManager.getInstance().setupRemoteVideo(remoteUid);
-            trtcVideoView.addView(videoView);
-        }
+    @ReactProp(name = "uid")
+    public void setUid(final TRTCVideoView trtcVideoView, final String uid) {
+        trtcVideoView.setUid(uid);
     }
 
 

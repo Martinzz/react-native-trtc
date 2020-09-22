@@ -6,7 +6,7 @@ import TRTCEngine, {
 } from 'rn-trtc';
 import {StyleSheet, View, TouchableOpacity, Text} from "react-native";
 
-const appId = 0;
+const sdkAppId = 0;
 const userId = '';
 const roomId = 0;
 const userSig = ''
@@ -40,7 +40,7 @@ const Example = () => {
         });
         // enter room
         engine.enterRoom({
-            appId: appId,
+            sdkAppId: sdkAppId,
             userId: userId,
             roomId: roomId,
             userSig: userSig

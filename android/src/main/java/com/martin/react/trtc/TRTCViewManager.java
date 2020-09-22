@@ -23,7 +23,11 @@ public class TRTCViewManager extends SimpleViewManager<TRTCVideoView> {
     protected TRTCVideoView createViewInstance(ThemedReactContext reactContext) {
         return new TRTCVideoView(reactContext);
     }
-
+    @Override
+    public void onDropViewInstance(TRTCVideoView view) {
+        view.stop();
+        super.onDropViewInstance(view);
+    }
 
     @ReactProp(name = "mode")
     public void setRenderMode(final TRTCVideoView trtcVideoView, int renderMode) {

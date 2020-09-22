@@ -52,3 +52,26 @@ export const Roles = {
     "TRTCRoleAnchor": 20,
     "TRTCRoleAudience": 21
 }
+
+/**
+ * 设置音频路由
+ * @type {{TRTC_AUDIO_ROUTE_EARPIECE: 听筒, TRTC_AUDIO_ROUTE_SPEAKER: 扬声器}}
+ */
+export const AudioRoutes = {
+    "TRTC_AUDIO_ROUTE_SPEAKER": 0,
+    "TRTC_AUDIO_ROUTE_EARPIECE": 1,
+}
+
+/**
+ *
+ * @type {{
+ * TRTC_VIDEO_STREAM_TYPE_SMALL: number, 主画面视频流
+ * TRTC_VIDEO_STREAM_TYPE_BIG: number, 小画面视频流
+ * TRTC_VIDEO_STREAM_TYPE_SUB: number 辅流（屏幕分享）
+ * }}
+ */
+export const VideoStreamTypes = {
+    "TRTC_VIDEO_STREAM_TYPE_BIG": 0,
+    "TRTC_VIDEO_STREAM_TYPE_SMALL": 1,
+    "TRTC_VIDEO_STREAM_TYPE_SUB": 2,
+}

@@ -71,7 +71,7 @@ public class TRTCManager {
 
     public void enterRoom(ReadableMap options, int scene) {
         TRTCCloudDef.TRTCParams trtcParams = new TRTCCloudDef.TRTCParams();
-        int sdkAppId = options.hasKey("appId") ? options.getInt("appId") : null;
+        int sdkAppId = options.hasKey("sdkAppId") ? options.getInt("sdkAppId") : null;
         String userId = options.hasKey("userId") ? options.getString("userId") : null;
         int roomId = options.hasKey("roomId") ? options.getInt("roomId") : null;
         String userSig = options.hasKey("userSig") ? options.getString("userSig") : null;
@@ -83,7 +83,7 @@ public class TRTCManager {
         if(options.hasKey("privateMapKey")){
             trtcParams.privateMapKey = options.getString("privateMapKey");
         }
-        
+
         this.mTRTCCloud.enterRoom(trtcParams, scene);
     }
 

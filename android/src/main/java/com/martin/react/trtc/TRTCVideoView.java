@@ -44,6 +44,15 @@ public class TRTCVideoView extends LinearLayout {
         }
     }
 
+    public void stop(){
+        String userId = surface.getUserId();
+        if("0".equals(userId)){
+            TRTCManager.getInstance().mTRTCCloud.stopLocalPreview();
+        }else{
+            TRTCManager.getInstance().mTRTCCloud.stopRemoteView(userId);
+        }
+    }
+
     private void setupVideoView() {
         String userId = surface.getUserId();
         if("0".equals(userId)){

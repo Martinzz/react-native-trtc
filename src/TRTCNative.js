@@ -79,6 +79,39 @@ export default class TRTCNative {
         TRTCEventEmitter.removeAllListeners(event);
         this._listeners.delete(event);
     }
+
+    /**
+     * 开始进行网络测速（视频通话期间请勿测试，以免影响通话质量）
+     * @param sdkAppId
+     * @param userId
+     * @param userSig
+     */
+    startSpeedTest(sdkAppId, userId, userSig){
+        RTCTencent.startSpeedTest(sdkAppId, userId, userSig);
+    }
+
+    /**
+     * 停止服务器测速
+     */
+    stopSpeedTest(){
+        RTCTencent.stopSpeedTest();
+    }
+
+    /**
+     * 开始向腾讯云的直播 CDN 推流
+     * @param streamId
+     * @param streamType
+     */
+    startPublishing(streamId, streamType){
+        RTCTencent.startPublishing(streamId, streamType);
+    }
+
+    /**
+     * 停止向腾讯云的直播 CDN 推流
+     */
+    stopPublishing(){
+        RTCTencent.stopPublishing();
+    }
     /**
      * 加入房间
      * @param options
@@ -112,13 +145,6 @@ export default class TRTCNative {
     }
 
     /**
-     * 开始本地视频预览
-     */
-    startLocalPreview(frontCamera){
-        RTCTencent.startLocalPreview(frontCamera)
-    }
-
-    /**
      * 停止本地视频预览
      */
     stopLocalPreview(){
@@ -139,7 +165,119 @@ export default class TRTCNative {
         RTCTencent.stopLocalAudio()
     }
 
+    /**
+     * 静音/取消静音本地的音频
+     * @param mute
+     */
+    muteLocalAudio(mute){
+        RTCTencent.muteLocalAudio(mute)
+    }
 
+    /**
+     * 设置音频路由
+     * @param route
+     */
+    setAudioRoute(route){
+        RTCTencent.setAudioRoute(route)
+    }
+
+    /**
+     * 静音/取消静音指定的远端用户的声音
+     * @param userId
+     * @param mute
+     */
+    muteRemoteAudio(userId, mute){
+        RTCTencent.muteRemoteAudio(userId, mute)
+    }
+
+    /**
+     * 静音/取消静音所有用户的声音
+     */
+    muteAllRemoteAudio(mute){
+        RTCTencent.muteAllRemoteAudio(mute)
+    }
+
+    /**
+     * 设置某个远程用户的播放音量
+     * @param userId
+     * @param volume 音量大小，取值0 - 100
+     */
+    muteAllRemoteAudio(userId, volume){
+        RTCTencent.setRemoteAudioVolume(userId, volume)
+    }
+
+    /**
+     * 设置 SDK 采集音量
+     * @param volume 音量大小，取值0 - 100，默认值为100
+     */
+    setAudioCaptureVolume(volume){
+        RTCTencent.setAudioCaptureVolume(volume)
+    }
+
+    /**
+     * 获取 SDK 采集音量
+     * @returns {*}
+     */
+    getAudioCaptureVolume(){
+        return RTCTencent.getAudioCaptureVolume()
+    }
+
+    /**
+     * 设置 SDK 播放音量
+     * @param volume 音量大小，取值0 - 100，默认值为100
+     */
+    setAudioPlayoutVolume(volume){
+        RTCTencent.setAudioPlayoutVolume(volume)
+    }
+
+    /**
+     * 获取 SDK 播放音量
+     * @returns {*}
+     */
+    getAudioPlayoutVolume(){
+        return RTCTencent.getAudioPlayoutVolume()
+    }
+
+    /**
+     * 启用音量大小提示
+     * 开启后会在 onUserVoiceVolume 中获取到 SDK 对音量大小值的评估。如需打开此功能，请在 startLocalAudio() 之前调用。
+     * @param intervalMs 决定了 onUserVoiceVolume 回调的触发间隔，单位为ms，最小间隔为100ms，
+     * 如果小于等于0则会关闭回调，建议设置为300ms；详细的回调规则请参考 onUserVoiceVolume 的注释说明
+     */
+    enableAudioVolumeEvaluation(intervalMs){
+        RTCTencent.enableAudioVolumeEvaluation(intervalMs)
+    }
+
+    /**
+     * 开始录音
+     * @param filePath 录音文件保存路径
+     * @returns {Promise<void>} 0：成功；-1：录音已开始；-2：文件或目录创建失败；-3：后缀指定的音频格式不支持
+     */
+    startAudioRecording(filePath){
+        return RTCTencent.startAudioRecording(filePath);
+    }
+
+    /**
+     * 停止录音
+     */
+    stopAudioRecording(){
+        RTCTencent.stopAudioRecording()
+    }
+
+    /**
+     * 开启耳返
+     * @param enable true：开启；false：关闭
+     */
+    enableAudioEarMonitoring(enable){
+        RTCTencent.enableAudioEarMonitoring(enable)
+    }
+
+    /**
+     * 切换摄像头
+     */
+    switchCamera(){
+        RTCTencent.switchCamera()
+    }
 }
 
 

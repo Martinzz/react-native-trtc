@@ -91,10 +91,6 @@ public class TRTCManager {
         this.mTRTCCloud.switchRole(role);
     }
 
-    public void stopLocalPreview(){
-        this.mTRTCCloud.stopLocalPreview();
-    }
-
     public void startLocalAudio(){
         this.mTRTCCloud.startLocalAudio();
     }
@@ -103,20 +99,10 @@ public class TRTCManager {
     }
 
     public void exitRoom(){
-        if(this.mTRTCCloud != null){
-            this.mTRTCCloud.stopLocalAudio();
-            this.mTRTCCloud.stopLocalPreview();
-            this.mTRTCCloud.exitRoom();
-        }
+        this.mTRTCCloud.exitRoom();
     }
 
     public void destroy(){
-        exitRoom();
-        //销毁 trtc 实例
-        if (this.mTRTCCloud != null) {
-            this.mTRTCCloud.setListener(null);
-        }
-        this.mTRTCCloud = null;
         TRTCCloud.destroySharedInstance();
     }
 }

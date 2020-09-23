@@ -266,10 +266,6 @@ public class TRTCModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void stopLocalPreview() {
-        TRTCManager.getInstance().stopLocalPreview();
-    }
-    @ReactMethod
     public void startLocalAudio() {
         TRTCManager.getInstance().startLocalAudio();
     }
@@ -369,10 +365,7 @@ public class TRTCModule extends ReactContextBaseJavaModule {
     public void stopAudioRecording() {
         mTRTCCloud.stopAudioRecording();
     }
-    @ReactMethod
-    public void enableAudioEarMonitoring(boolean enable) {
-        mTRTCCloud.enableAudioEarMonitoring(enable);
-    }
+
     @ReactMethod
     public void switchCamera() {
         mTRTCCloud.switchCamera();

@@ -145,13 +145,6 @@ export default class TRTCNative {
     }
 
     /**
-     * 停止本地视频预览
-     */
-    stopLocalPreview(){
-        RTCTencent.stopLocalPreview()
-    }
-
-    /**
      * 启用本地音频
      */
     startLocalAudio(){
@@ -262,14 +255,6 @@ export default class TRTCNative {
      */
     stopAudioRecording(){
         RTCTencent.stopAudioRecording()
-    }
-
-    /**
-     * 开启耳返
-     * @param enable true：开启；false：关闭
-     */
-    enableAudioEarMonitoring(enable){
-        RTCTencent.enableAudioEarMonitoring(enable)
     }
 
     /**

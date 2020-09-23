@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0F73FC251B33D400766A88 /* TRTCConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0F73FB251B33D400766A88 /* TRTCConst.m */; };
 		5B65B6DB2519ED40008DDD43 /* RNTRTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B65B6DA2519ED40008DDD43 /* RNTRTC.m */; };
 		5B65B6DC2519ED40008DDD43 /* RNTRTC.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5B65B6D92519ED40008DDD43 /* RNTRTC.h */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B0F73FA251B33D400766A88 /* TRTCConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRTCConst.h; sourceTree = "<group>"; };
+		5B0F73FB251B33D400766A88 /* TRTCConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRTCConst.m; sourceTree = "<group>"; };
 		5B65B6D62519ED40008DDD43 /* libRNTRTC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNTRTC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B65B6D92519ED40008DDD43 /* RNTRTC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTRTC.h; sourceTree = "<group>"; };
 		5B65B6DA2519ED40008DDD43 /* RNTRTC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTRTC.m; sourceTree = "<group>"; };
@@ -62,6 +65,8 @@
 			children = (
 				5B65B6D92519ED40008DDD43 /* RNTRTC.h */,
 				5B65B6DA2519ED40008DDD43 /* RNTRTC.m */,
+				5B0F73FA251B33D400766A88 /* TRTCConst.h */,
+				5B0F73FB251B33D400766A88 /* TRTCConst.m */,
 			);
 			path = RNTRTC;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B0F73FC251B33D400766A88 /* TRTCConst.m in Sources */,
 				5B65B6DB2519ED40008DDD43 /* RNTRTC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

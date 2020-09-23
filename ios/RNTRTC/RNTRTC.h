@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 #import "TXLiteAVSDK_TRTC/TRTCCloud.h"
 
-@interface RNTRTC : NSObject<RCTBridgeModule, TRTCCloudDelegate>
+@interface RNTRTC : RCTEventEmitter<RCTBridgeModule, TRTCCloudDelegate>
 
 @property (strong, nonatomic) TRTCCloud *rtcEngine;
 

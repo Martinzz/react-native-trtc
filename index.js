@@ -1,8 +1,10 @@
 export * from './src/Types';
-import TRTCView from './src/TRTCVideoView';
+import TRTCLocalView from './src/TRTCLocalView';
+import TRTCRemoteView from './src/TRTCRemoteView'
 import TRTCNative from './src/TRTCNative';
 export {
-    TRTCView,
+    TRTCLocalView,
+    TRTCRemoteView,
 };
 export default TRTCNative;
 

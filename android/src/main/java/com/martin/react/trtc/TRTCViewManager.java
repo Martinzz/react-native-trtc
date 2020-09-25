@@ -24,25 +24,20 @@ public class TRTCViewManager extends SimpleViewManager<TRTCVideoView> {
         return new TRTCVideoView(reactContext);
     }
     @Override
-    public void onDropViewInstance(TRTCVideoView view) {
-        view.stop();
-        super.onDropViewInstance(view);
+    public void onDropViewInstance(TRTCVideoView trtcVideoView) {
+        trtcVideoView.stopPlayView();
+        super.onDropViewInstance(trtcVideoView);
     }
-
-    @ReactProp(name = "mode")
+    @ReactProp(name = "renderMode")
     public void setRenderMode(final TRTCVideoView trtcVideoView, int renderMode) {
         trtcVideoView.setRenderMode(renderMode);
     }
-
-    @ReactProp(name = "frontCamera")
-    public void setFrontCamera(final TRTCVideoView trtcVideoView, boolean frontCamera) {
-        trtcVideoView.setFrontCamera(frontCamera);
+    @ReactProp(name = "mirrorMode")
+    public void setMirrorMode(final TRTCVideoView trtcVideoView, int mirrorMode) {
+        trtcVideoView.setMirrorMode(mirrorMode);
     }
-
     @ReactProp(name = "uid")
     public void setUid(final TRTCVideoView trtcVideoView, final String uid) {
         trtcVideoView.setUid(uid);
     }
-
-
 }

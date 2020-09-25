@@ -1,30 +1,36 @@
 import {NativeModules, NativeEventEmitter} from "react-native";
 import {
-    VideoResolutions,
-    VideoResolutionModes
+    VideoResolution,
 } from "./Types";
 const { RTCTencent } = NativeModules;
 const TRTCEventEmitter = new NativeEventEmitter(RTCTencent);
-
+/**
+ * @ignore
+ */
+let engine;
 export default class TRTCNative {
     constructor() {
         this._listeners = new Map();
     }
-
+    static instance() {
+        if (engine) {
+            return engine;
+        }
+        else {
+            throw new Error('please create RtcEngine first');
+        }
+    }
     /**
      * 初始化TRTC
      * @param options
      * @returns {TRTCNative}
      */
     static create(options){
-        const _options = Object.assign({
-            videoResolution: VideoResolutions.TRTC_VIDEO_RESOLUTION_640_360,
-            videoResolutionMode: VideoResolutionModes.TRTC_VIDEO_RESOLUTION_MODE_PORTRAIT,
-            videoFps: 15,
-            videoBitrate: 1200,
-        }, options)
-        RTCTencent.init(_options);
-        return new TRTCNative();
+        if (engine)
+            return engine;
+        RTCTencent.init(Object.assign({}, options));
+        engine = new TRTCNative();
+        return engine;
     }
 
     /**
@@ -81,6 +87,101 @@ export default class TRTCNative {
     }
 
     /**
+     * 设置本地图像的顺时针旋转角度
+     * @param rotation
+     */
+    setLocalViewRotation(rotation){
+        RTCTencent.setLocalViewRotation(rotation);
+    }
+
+    /**
+     * 设置远端图像的顺时针旋转角度
+     * @param userId
+     * @param rotation
+     */
+    setRemoteViewRotation(userId, rotation){
+        RTCTencent.setRemoteViewRotation(userId, rotation);
+    }
+
+    /**
+     * 设置视频编码输出的画面方向，即设置远端用户观看到的和服务器录制的画面方向
+     * @param rotation
+     */
+    setVideoEncoderRotation(rotation){
+        RTCTencent.setVideoEncoderRotation(rotation);
+    }
+
+    /**
+     * 设置本地摄像头预览画面的镜像模式
+     * @param mirror
+     */
+    setLocalViewMirror(mirror){
+        RTCTencent.setLocalViewMirror(mirror);
+    }
+
+    /**
+     * 设置编码器输出的画面镜像模式
+     * 该接口不改变本地摄像头的预览画面，但会改变另一端用户看到的（以及服务器录制的）画面效果
+     * @param mirror 是否开启远端镜像，YES：开启远端画面镜像；NO：关闭远端画面镜像，默认值：NO。
+     */
+    setVideoEncoderMirror(mirror){
+        RTCTencent.setVideoEncoderMirror(mirror);
+    }
+
+    /**
+     * 设置重力感应的适应模式
+     * @param mode 默认值：TRTCGSensorMode_UIAutoLayout
+     */
+    setGSensorMode(mode){
+        RTCTencent.setGSensorMode(mode);
+    }
+
+    /**
+     * 开启大小画面双路编码模式
+     * @param enable 是否开启小画面编码，默认值：NO
+     * @param smallVideoEncParam 小流的视频参数
+     * @return Promise 0：成功；-1：大画面已经是最低画质
+     */
+    enableEncSmallVideoStream(enable, smallVideoEncParam){
+        return RTCTencent.enableEncSmallVideoStream(enable, smallVideoEncParam);
+    }
+
+    /**
+     * 选定观看指定 uid 的大画面或小画面
+     * @param userId
+     * @param type 视频流类型，即选择看大画面或小画面，默认为大画面
+     */
+    setRemoteVideoStreamType(userId, type){
+        RTCTencent.setRemoteVideoStreamType(userId, type);
+    }
+
+    /**
+     * 设定观看方优先选择的视频质量
+     * 低端设备推荐优先选择低清晰度的小画面。 如果对方没有开启双路视频模式，则此操作无效。
+     * @param type
+     */
+    setPriorRemoteVideoStreamType(type){
+        RTCTencent.setPriorRemoteVideoStreamType(type);
+    }
+
+    /**
+     * 截取本地、远程主路和远端辅流的视频画面
+     * @param userId
+     * @param type
+     * @return Promise
+     */
+    snapshotVideo(userId, type){
+        return RTCTencent.snapshotVideo(userId, type);
+    }
+
+    /**
+     * 设置音频质量
+     * @param quality AudioQuality
+     */
+    setAudioQuality(quality){
+        RTCTencent.setAudioQuality(quality);
+    }
+    /**
      * 开始进行网络测速（视频通话期间请勿测试，以免影响通话质量）
      * @param sdkAppId
      * @param userId
@@ -112,6 +213,24 @@ export default class TRTCNative {
     stopPublishing(){
         RTCTencent.stopPublishing();
     }
+
+    /**
+     * 开始向友商云的直播 CDN 转推
+     * @param appId
+     * @param bizId
+     * @param url
+     */
+    startPublishCDNStream(appId, bizId, url){
+        RTCTencent.startPublishCDNStream(appId, bizId, url);
+    }
+
+    /**
+     * 停止向非腾讯云地址转推
+     */
+    stopPublishCDNStream(){
+        RTCTencent.stopPublishCDNStream();
+    }
+
     /**
      * 加入房间
      * @param options
@@ -126,6 +245,7 @@ export default class TRTCNative {
      */
     destroy(){
         this.removeAllListeners();
+        engine = undefined;
         RTCTencent.destroy(); // 退出房间并销毁
     }
 
@@ -209,7 +329,7 @@ export default class TRTCNative {
 
     /**
      * 获取 SDK 采集音量
-     * @returns {*}
+     * @returns Promise
      */
     getAudioCaptureVolume(){
         return RTCTencent.getAudioCaptureVolume()
@@ -225,7 +345,7 @@ export default class TRTCNative {
 
     /**
      * 获取 SDK 播放音量
-     * @returns {*}
+     * @returns Promise
      */
     getAudioPlayoutVolume(){
         return RTCTencent.getAudioPlayoutVolume()
@@ -237,7 +357,7 @@ export default class TRTCNative {
      * @param intervalMs 决定了 onUserVoiceVolume 回调的触发间隔，单位为ms，最小间隔为100ms，
      * 如果小于等于0则会关闭回调，建议设置为300ms；详细的回调规则请参考 onUserVoiceVolume 的注释说明
      */
-    enableAudioVolumeEvaluation(intervalMs){
+    enableAudioVolumeEvaluation(intervalMs = 300){
         RTCTencent.enableAudioVolumeEvaluation(intervalMs)
     }
 

@@ -83,7 +83,9 @@ public class TRTCManager {
         if(options.hasKey("privateMapKey")){
             trtcParams.privateMapKey = options.getString("privateMapKey");
         }
-
+        if(options.hasKey("role")){
+            trtcParams.role = options.getInt("role");
+        }
         this.mTRTCCloud.enterRoom(trtcParams, scene);
     }
 

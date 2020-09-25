@@ -2,7 +2,7 @@
  * 视频分辨率
  * http://doc.qcloudtrtc.com/group__TRTCCloudDef__android.html#aa3b72c532f3ffdf64c6aacab26be5f87
  */
-export const VideoResolutions = {
+export const VideoResolution = {
     "TRTC_VIDEO_RESOLUTION_120_120": 1,
     "TRTC_VIDEO_RESOLUTION_160_160": 3,
     "TRTC_VIDEO_RESOLUTION_270_270": 5,
@@ -27,7 +27,7 @@ export const VideoResolutions = {
 /**
  * 分辨率模式
  */
-export const VideoResolutionModes = {
+export const VideoResolutionMode = {
     "TRTC_VIDEO_RESOLUTION_MODE_LANDSCAPE": 0,
     "TRTC_VIDEO_RESOLUTION_MODE_PORTRAIT": 1,
 }
@@ -36,7 +36,7 @@ export const VideoResolutionModes = {
  * 应用场景
  * http://doc.qcloudtrtc.com/group__TRTCCloudDef__android.html#a2ba88700d4e8f364866c328ad3fedc2a
  */
-export const Scenes = {
+export const Scene = {
     "TRTC_APP_SCENE_VIDEOCALL": 0,
     "TRTC_APP_SCENE_LIVE": 1,
     "TRTC_APP_SCENE_AUDIOCALL": 2,
@@ -48,7 +48,7 @@ export const Scenes = {
  * TRTCCloudDef#TRTCRoleAnchor 主播，可以上行视频和音频，一个房间里最多支持50个主播同时上行音视频。
  * TRTCCloudDef#TRTCRoleAudience 观众，只能观看，不能上行视频和音频，一个房间里的观众人数没有上限。
  */
-export const Roles = {
+export const Role = {
     "TRTCRoleAnchor": 20,
     "TRTCRoleAudience": 21
 }
@@ -57,7 +57,7 @@ export const Roles = {
  * 设置音频路由
  * @type {{TRTC_AUDIO_ROUTE_EARPIECE: 听筒, TRTC_AUDIO_ROUTE_SPEAKER: 扬声器}}
  */
-export const AudioRoutes = {
+export const AudioRoute = {
     "TRTC_AUDIO_ROUTE_SPEAKER": 0,
     "TRTC_AUDIO_ROUTE_EARPIECE": 1,
 }
@@ -70,8 +70,61 @@ export const AudioRoutes = {
  * TRTC_VIDEO_STREAM_TYPE_SUB: number 辅流（屏幕分享）
  * }}
  */
-export const VideoStreamTypes = {
+export const VideoStreamType = {
     "TRTC_VIDEO_STREAM_TYPE_BIG": 0,
     "TRTC_VIDEO_STREAM_TYPE_SMALL": 1,
     "TRTC_VIDEO_STREAM_TYPE_SUB": 2,
+}
+
+/**
+ *
+ * @type {{
+ * TRTCLocalVideoMirrorType_Disable: number 前置摄像头镜像，后置摄像头不镜像,
+ * TRTCLocalVideoMirrorType_Enable: number 前后置摄像头画面均镜像,
+ * TRTCLocalVideoMirrorType_Auto: number 前后置摄像头画面均不镜像
+ * }}
+ */
+export const VideoMirrorType = {
+    "TRTCLocalVideoMirrorType_Auto": 0,
+    "TRTCLocalVideoMirrorType_Enable": 1,
+    "TRTCLocalVideoMirrorType_Disable": 2,
+}
+/**
+ *
+ * @type {{
+ * TRTC_VIDEO_ROTATION_180: number,
+ * TRTC_VIDEO_ROTATION_0: number,
+ * TRTC_VIDEO_ROTATION_270: number,
+ * TRTC_VIDEO_ROTATION_90: number
+ * }}
+ */
+export const VideoRotation = {
+    "TRTC_VIDEO_ROTATION_0": 0,
+    "TRTC_VIDEO_ROTATION_90": 1,
+    "TRTC_VIDEO_ROTATION_180": 2,
+    "TRTC_VIDEO_ROTATION_270": 3,
+}
+
+/**
+ * 重力感应开关
+ * @type {{
+ * TRTCGSensorMode_UIAutoLayout: number 关闭重力感应，Mac 平台的默认值。
+ * TRTCGSensorMode_Disable: number 开启重力感应，iPhone 和 iPad 平台的默认值。
+ * }}
+ */
+export const GSensorMode = {
+    "TRTCGSensorMode_Disable": 0,
+    "TRTCGSensorMode_UIAutoLayout": 1
+}
+/**
+ *
+ * @type {{
+ * TRTCAudioQualityDefault: number, 流畅：采样率：16k；单声道；音频裸码率：16kbps；适合语音通话为主的场景，比如在线会议，语音通话
+ * TRTCAudioQualitySpeech: number,默认：采样率：48k；单声道；音频裸码率：50kbps；SDK 默认的音频质量，如无特殊需求推荐选择之。
+ * TRTCAudioQualityMusic: number}}高音质：采样率：48k；双声道 + 全频带；音频裸码率：128kbps；适合需要高保真传输音乐的场景，比如K歌、音乐直播等。
+ */
+export const AudioQuality = {
+    "TRTCAudioQualitySpeech": 1,
+    "TRTCAudioQualityDefault": 2,
+    "TRTCAudioQualityMusic": 3
 }

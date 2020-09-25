@@ -1,5 +1,9 @@
 {
   "name": "rn-trtc",
+  "peerDependencies": {
+    "react": ">=16.8.3",
+    "react-native": ">=0.59.9"
+  },
   "version": "1.0.0",
   "description": "腾讯实时音视频RN组件",
   "main": "index.js",

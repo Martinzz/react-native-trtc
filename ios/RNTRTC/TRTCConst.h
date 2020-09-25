@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TXLiteAVSDK_TRTC/TRTCCloud.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,6 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TRTCConst : NSObject
 
+@property (strong, nonatomic) TRTCCloud *rtcEngine;
+
++ (instancetype)share;
 + (NSArray<NSString*> *) supportEvents;
 @end
 

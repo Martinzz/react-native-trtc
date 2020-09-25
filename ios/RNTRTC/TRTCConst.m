@@ -10,6 +10,15 @@
 
 @implementation TRTCConst
 
+static TRTCConst *_person;
++ (instancetype)share {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    _person = [[self alloc]init];
+  });
+  return _person;
+}
+
 + (NSArray<NSString*>*) supportEvents {
     NSArray<NSString*>* array = @[
         TRTC_onError,

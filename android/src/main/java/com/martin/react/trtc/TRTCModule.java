@@ -1,6 +1,8 @@
 package com.martin.react.trtc;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 
 import androidx.annotation.Nullable;
 
@@ -18,6 +20,7 @@ import com.tencent.trtc.TRTCCloud;
 import com.tencent.trtc.TRTCCloudDef;
 import com.tencent.trtc.TRTCCloudListener;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +30,7 @@ import static com.martin.react.trtc.TRTCConst.*;
 public class TRTCModule extends ReactContextBaseJavaModule {
     private TRTCCloud mTRTCCloud;
     private final String TAG = "TRTCModule";
+    private Promise snapshotVideoCallback;
     public TRTCModule(ReactApplicationContext context) {
         super(context);
     }
@@ -190,7 +194,7 @@ public class TRTCModule extends ReactContextBaseJavaModule {
             for(TRTCCloudDef.TRTCVolumeInfo info : userVolumes){
                 remoteMap = Arguments.createMap();
                 remoteMap.putString("userId", info.userId);
-                remoteMap.putInt("quality", info.volume);
+                remoteMap.putInt("volume", info.volume);
                 array.pushMap(remoteMap);
             }
             map.putArray("userVolumes", array);
@@ -228,24 +232,6 @@ public class TRTCModule extends ReactContextBaseJavaModule {
             map.putInt("err", err);
             map.putString("errMsg", errMsg);
             sendEvent(getReactApplicationContext(), TRTC_onStopPublishCDNStream, map);
-        }
-        @Override
-        public void onScreenCaptureStarted() {
-            sendEvent(getReactApplicationContext(), TRTC_onScreenCaptureStarted, null);
-        }
-        @Override
-        public void onScreenCapturePaused() {
-            sendEvent(getReactApplicationContext(), TRTC_onScreenCapturePaused, null);
-        }
-        @Override
-        public void onScreenCaptureResumed() {
-            sendEvent(getReactApplicationContext(), TRTC_onScreenCaptureResumed, null);
-        }
-        @Override
-        public void onScreenCaptureStopped(int 	reason	) {
-            WritableMap map = Arguments.createMap();
-            map.putInt("reason", reason);
-            sendEvent(getReactApplicationContext(), TRTC_onScreenCaptureStopped, map);
         }
     };
 
@@ -369,5 +355,78 @@ public class TRTCModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void switchCamera() {
         mTRTCCloud.switchCamera();
+    }
+
+    @ReactMethod
+    public void setLocalViewRotation(int rotation) {
+        mTRTCCloud.setLocalViewRotation(rotation);
+    }
+    @ReactMethod
+    public void setRemoteViewRotation(String userId, int rotation) {
+        mTRTCCloud.setRemoteViewRotation(userId, rotation);
+    }
+    @ReactMethod
+    public void setVideoEncoderRotation(int rotation) {
+        mTRTCCloud.setVideoEncoderRotation(rotation);
+    }
+    @ReactMethod
+    public void setLocalViewMirror(int mirror) {
+        mTRTCCloud.setLocalViewMirror(mirror);
+    }
+    @ReactMethod
+    public void setVideoEncoderMirror(boolean mirror) {
+        mTRTCCloud.setVideoEncoderMirror(mirror);
+    }
+    @ReactMethod
+    public void setGSensorMode(int mode) {
+        mTRTCCloud.setGSensorMode(mode);
+    }
+    @ReactMethod
+    public void enableEncSmallVideoStream(boolean enable, ReadableMap options, Promise promise) {
+        TRTCCloudDef.TRTCVideoEncParam param = new TRTCCloudDef.TRTCVideoEncParam();
+        if (options.hasKey("resMode")) {
+            param.videoResolutionMode = options.getInt("resMode");
+        }
+        if (options.hasKey("videoFps")) {
+            param.videoFps = options.getInt("videoFps");
+        }
+        if (options.hasKey("videoBitrate")) {
+            param.videoBitrate = options.getInt("videoBitrate");
+        }
+        if (options.hasKey("minVideoBitrate")) {
+            param.minVideoBitrate = options.getInt("minVideoBitrate");
+        }
+        if (options.hasKey("enableAdjustRes")) {
+            param.enableAdjustRes = options.getBoolean("enableAdjustRes");
+        }
+        int result = mTRTCCloud.enableEncSmallVideoStream(enable, param);
+        promise.resolve(result);
+    }
+    @ReactMethod
+    public void setRemoteVideoStreamType(String userId, int type) {
+        mTRTCCloud.setRemoteVideoStreamType(userId, type);
+    }
+    @ReactMethod
+    public void setPriorRemoteVideoStreamType(int type) {
+        mTRTCCloud.setPriorRemoteVideoStreamType(type);
+    }
+    private TRTCCloudListener.TRTCSnapshotListener snapshotListener = new TRTCCloudListener.TRTCSnapshotListener(){
+        @Override
+        public void onSnapshotComplete(Bitmap bitmap){
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            bitmap.recycle();
+            byte[] bitmapBytes = stream.toByteArray();
+            snapshotVideoCallback.resolve(Base64.encodeToString(bitmapBytes, Base64.DEFAULT));
+        }
+    };
+    @ReactMethod
+    public void snapshotVideo(String userId, int type, Promise promise) {
+        snapshotVideoCallback = promise;
+        mTRTCCloud.snapshotVideo(userId, type, snapshotListener);
+    }
+    @ReactMethod
+    public void setAudioQuality(int quality) {
+        mTRTCCloud.setAudioQuality(quality);
     }
 }

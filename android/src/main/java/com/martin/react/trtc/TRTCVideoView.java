@@ -1,11 +1,10 @@
 package com.martin.react.trtc;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 import com.tencent.rtmp.ui.TXCloudVideoView;
-import com.tencent.trtc.TRTCCloudDef;
+import com.tencent.trtc.TRTCCloud;
 
 
 /**
@@ -15,50 +14,43 @@ import com.tencent.trtc.TRTCCloudDef;
  */
 public class TRTCVideoView extends LinearLayout {
 
-    private boolean frontCamera = true;
     private TXCloudVideoView surface;
-    private int renderMode = TRTCCloudDef.TRTC_VIDEO_RENDER_MODE_FILL;
 
     public TRTCVideoView(Context context) {
         super(context);
         surface = new TXCloudVideoView(context);
         addView(surface);
     }
-
-    public void setFrontCamera(boolean front){
-        this.frontCamera = front;
-        setupVideoView();
+    private TRTCCloud getEngine(){
+        return TRTCManager.getInstance().mTRTCCloud;
     }
-
-    public void setUid(String uid){
-        surface.setUserId(uid);
-        setupVideoView();
+    public void setUid(String userId){
+        surface.setUserId(userId);
+        if(!"".equals(userId)){
+            getEngine().startRemoteView(userId, surface);
+        }else{
+            getEngine().startLocalPreview(true, surface);
+        }
     }
-
     public void setRenderMode(int renderMode){
         String userId = surface.getUserId();
-        if("0".equals(userId)){
-            TRTCManager.getInstance().mTRTCCloud.setLocalViewFillMode(renderMode);
+        if("".equals(userId)){
+            getEngine().setLocalViewFillMode(renderMode);
         }else{
-            TRTCManager.getInstance().mTRTCCloud.setRemoteViewFillMode(userId, renderMode);
+            getEngine().setRemoteViewFillMode(userId, renderMode);
         }
     }
 
-    public void stop(){
-        String userId = surface.getUserId();
-        if("0".equals(userId)){
-            TRTCManager.getInstance().mTRTCCloud.stopLocalPreview();
-        }else{
-            TRTCManager.getInstance().mTRTCCloud.stopRemoteView(userId);
-        }
+    public void setMirrorMode(int mirrorMode){
+        getEngine().setLocalViewMirror(mirrorMode);
     }
 
-    private void setupVideoView() {
+    public void stopPlayView(){
         String userId = surface.getUserId();
-        if("0".equals(userId)){
-            TRTCManager.getInstance().mTRTCCloud.startLocalPreview(frontCamera, surface);
-        } else {
-            TRTCManager.getInstance().mTRTCCloud.startRemoteView(userId, surface);
+        if("".equals(userId)){
+            getEngine().stopLocalPreview();
+        }else{
+            getEngine().stopRemoteView(userId);
         }
     }
 }

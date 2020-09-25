@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
-#import "TXLiteAVSDK_TRTC/TRTCCloud.h"
+#import "TRTCConst.h"
 
 @interface RNTRTC : RCTEventEmitter<RCTBridgeModule, TRTCCloudDelegate>
 

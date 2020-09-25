@@ -83,10 +83,11 @@ const Example = () => {
         engineRef.current.switchCamera();
     };
     const onLinkMic = () => {
+        // 下麦
         if(roomState.linkMic){
             engineRef.current.switchRole(Role.TRTCRoleAudience);
             engineRef.current.stopLocalAudio();
-        }else{
+        }else{ // 上麦
             engineRef.current.switchRole(Role.TRTCRoleAnchor);
             engineRef.current.startLocalAudio();
         }

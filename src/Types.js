@@ -31,7 +31,10 @@ export const VideoResolutionMode = {
     "TRTC_VIDEO_RESOLUTION_MODE_LANDSCAPE": 0,
     "TRTC_VIDEO_RESOLUTION_MODE_PORTRAIT": 1,
 }
-
+export const RenderMode = {
+    "TRTC_VIDEO_RENDER_MODE_FILL": 0,
+    "TRTC_VIDEO_RENDER_MODE_FIT": 1,
+}
 /**
  * 应用场景
  * http://doc.qcloudtrtc.com/group__TRTCCloudDef__android.html#a2ba88700d4e8f364866c328ad3fedc2a

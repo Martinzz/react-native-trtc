@@ -1,13 +1,14 @@
 import React, { Component, useEffect, useRef } from "react";
 import TRTCEngine, {
-    TRTCLocalView, Scene, Role, VideoRotation, TRTCRemoteView, VideoResolution
+    TRTCLocalView, Scene, Role, RenderMode,
+    VideoRotation, TRTCRemoteView, VideoResolution
 } from 'rn-trtc';
 import {StyleSheet, View, TouchableOpacity, Text} from "react-native";
 
 const sdkAppId = 0;
-const userId = '1';
-const roomId = 859;
-const userSig = '';
+const userId = '';
+const roomId = 0;
+const userSig = ''
 
 const Example = () => {
     const [roomState, setRoomState] = React.useState({
@@ -23,7 +24,7 @@ const Example = () => {
     useEffect(()=>{
         // init
         const engine = TRTCEngine.create({
-            videoResolution: VideoResolution.TRTC_VIDEO_RESOLUTION_640_360,
+            videoResolution: VideoResolution.TRTC_VIDEO_RESOLUTION_120_120,
             videoFps: 15,
             videoBitrate: 1200,
         });
@@ -96,9 +97,11 @@ const Example = () => {
     return(
         <View style={styles.container}>
             <View style={styles.video}>
-                {roomState.linkMic && <TRTCLocalView style={styles.videoContainer}/>}
+                {roomState.linkMic && <TRTCLocalView renderMode={RenderMode.TRTC_VIDEO_RENDER_MODE_FILL}
+                                                     style={styles.videoContainer}/>}
                 {roomState.remoteUsers.map((item, index)=><TRTCRemoteView uid={item}
                                                                           key={`trtc-${index}`}
+                                                                          renderMode={RenderMode.TRTC_VIDEO_RENDER_MODE_FILL}
                                                                           style={styles.videoContainer}/>)}
             </View>
             <View style={styles.buttonHolder}>
@@ -131,8 +134,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     videoContainer:{
-        height: 150,
-        width: 150,
+        height: 100,
+        width: 100,
+        margin: 10,
+        overflow: 'hidden',
         backgroundColor:'#000'
     },
     button: {

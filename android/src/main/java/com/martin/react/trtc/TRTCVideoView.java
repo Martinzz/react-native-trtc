@@ -1,8 +1,10 @@
 package com.martin.react.trtc;
 
 import android.content.Context;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
+import com.facebook.react.modules.core.ChoreographerCompat;
+import com.facebook.react.modules.core.ReactChoreographer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.tencent.trtc.TRTCCloud;
 
@@ -12,14 +14,37 @@ import com.tencent.trtc.TRTCCloud;
  * @Author martin
  * @Date 2020-09-18 17:02
  */
-public class TRTCVideoView extends LinearLayout {
+public class TRTCVideoView extends FrameLayout {
 
+    private boolean mLayoutEnqueued = false;
     private TXCloudVideoView surface;
-
     public TRTCVideoView(Context context) {
         super(context);
         surface = new TXCloudVideoView(context);
         addView(surface);
+    }
+    private final ChoreographerCompat.FrameCallback mLayoutCallback = new ChoreographerCompat.FrameCallback() {
+        @Override
+        public void doFrame(long frameTimeNanos) {
+            mLayoutEnqueued = false;
+            measure(
+                    MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.EXACTLY));
+            layout(getLeft(), getTop(), getRight(), getBottom());
+        }
+    };
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
+
+        if (!mLayoutEnqueued && mLayoutCallback != null) {
+            mLayoutEnqueued = true;
+            // we use NATIVE_ANIMATED_MODULE choreographer queue because it allows us to catch the current
+            // looper loop instead of enqueueing the update in the next loop causing a one frame delay.
+            ReactChoreographer.getInstance().postFrameCallback(
+                    ReactChoreographer.CallbackType.NATIVE_ANIMATED_MODULE,
+                    mLayoutCallback);
+        }
     }
     private TRTCCloud getEngine(){
         return TRTCManager.getInstance().mTRTCCloud;

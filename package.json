@@ -4,7 +4,7 @@
     "react": "16.11.0",
     "react-native": ">=0.60"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "腾讯实时音视频RN组件",
   "main": "index.js",
   "scripts": {

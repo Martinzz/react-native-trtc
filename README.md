@@ -41,6 +41,11 @@ const engine = TRTCEngine.create({
     videoFps: 15,
     videoBitrate: 1200,
 });
+
+engine.setBeautyStyle(1); // 设置美颜风格
+engine.setBeautyLevel(5); // 设置美颜级别
+engine.setWhitenessLevel(1); // 设置美白级别
+        
 // 绑定事件，事件名参照官方文档
 engine.addListener("onError", (args) => {
     console.error(args)

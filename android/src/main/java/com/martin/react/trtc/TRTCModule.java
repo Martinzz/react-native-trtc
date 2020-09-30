@@ -15,6 +15,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.tencent.trtc.TRTCCloud;
 import com.tencent.trtc.TRTCCloudDef;
@@ -27,17 +28,22 @@ import java.util.Map;
 
 import static com.martin.react.trtc.TRTCConst.*;
 
+@ReactModule(name = TRTCModule.MODULE_NAME)
 public class TRTCModule extends ReactContextBaseJavaModule {
     private TRTCCloud mTRTCCloud;
-    private final String TAG = "TRTCModule";
+    protected static final String MODULE_NAME = "RTCTencent";
     private Promise snapshotVideoCallback;
     public TRTCModule(ReactApplicationContext context) {
         super(context);
     }
 
+    public TRTCCloud engine(){
+        return mTRTCCloud;
+    }
+
     @Override
     public String getName() {
-        return "RTCTencent";
+        return MODULE_NAME;
     }
 
     @Override

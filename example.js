@@ -3,7 +3,7 @@ import TRTCEngine, {
     TRTCLocalView, Scene, Role, RenderMode,
     VideoRotation, TRTCRemoteView, VideoResolution
 } from 'rn-trtc';
-import {StyleSheet, View, TouchableOpacity, Text} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, SafeAreaView} from "react-native";
 
 const sdkAppId = 0;
 const userId = '';
@@ -28,6 +28,10 @@ const Example = () => {
             videoFps: 15,
             videoBitrate: 1200,
         });
+        engine.setBeautyStyle(1); // 设置美颜风格
+        engine.setBeautyLevel(5); // 设置美颜级别
+        engine.setWhitenessLevel(1); // 设置美白级别
+
         engineRef.current = engine;
         // error event
         engine.addListener("onError", (args) => {
@@ -95,7 +99,7 @@ const Example = () => {
         setState({linkMic: !roomState.linkMic}); // 设置显示本地预览视频
     };
     return(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.video}>
                 {roomState.linkMic && <TRTCLocalView renderMode={RenderMode.TRTC_VIDEO_RENDER_MODE_FILL}
                                                      style={styles.videoContainer}/>}
@@ -116,7 +120,7 @@ const Example = () => {
                     <Text style={styles.buttonText}>{roomState.linkMic ? '下麦' : '上麦'}</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -134,8 +138,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     videoContainer:{
-        height: 100,
-        width: 100,
+        height: 150,
+        width: 150,
         margin: 10,
         overflow: 'hidden',
         backgroundColor:'#000'

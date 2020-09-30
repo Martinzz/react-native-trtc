@@ -15,6 +15,7 @@ public class TRTCPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.asList(new NativeModule[]{
                 new TRTCModule(reactContext),
+                new TRTCBeautyModule(reactContext),
         });
     }
 

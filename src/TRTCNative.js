@@ -2,7 +2,7 @@ import {NativeModules, NativeEventEmitter} from "react-native";
 import {
     VideoResolution,
 } from "./Types";
-const { RTCTencent } = NativeModules;
+const { RTCTencent, TRTCBeauty} = NativeModules;
 const TRTCEventEmitter = new NativeEventEmitter(RTCTencent);
 /**
  * @ignore
@@ -382,6 +382,46 @@ export default class TRTCNative {
      */
     switchCamera(){
         RTCTencent.switchCamera()
+    }
+
+    /**
+     * 设置美颜类型
+     * @param beautyStyle 三种美颜风格：0 ：光滑 1：自然 2：朦胧
+     */
+    setBeautyStyle(beautyStyle){
+        TRTCBeauty.setBeautyStyle(beautyStyle)
+    }
+
+    /**
+     * 设置美颜级别
+     * @param beautyLevel 美颜级别，取值范围0 - 9； 0表示关闭，1 - 9值越大，效果越明显。
+     */
+    setBeautyLevel(beautyLevel){
+        TRTCBeauty.setBeautyLevel(beautyLevel)
+    }
+
+    /**
+     * 设置美白级别
+     * @param whitenessLevel 美白级别，取值范围0 - 9； 0表示关闭，1 - 9值越大，效果越明显。
+     */
+    setWhitenessLevel(whitenessLevel){
+        TRTCBeauty.setWhitenessLevel(whitenessLevel)
+    }
+
+    /**
+     * 开启清晰度增强
+     * @param enable
+     */
+    enableSharpnessEnhancement(enable){
+        TRTCBeauty.enableSharpnessEnhancement(enable)
+    }
+
+    /**
+     * 设置红润级别
+     * @param ruddyLevel 取值范围0 - 9； 0表示关闭，1 - 9值越大，效果越明显。
+     */
+    setRuddyLevel(ruddyLevel){
+        TRTCBeauty.setRuddyLevel(ruddyLevel)
     }
 }
 

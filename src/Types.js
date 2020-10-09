@@ -131,3 +131,25 @@ export const AudioQuality = {
     "TRTCAudioQualityDefault": 2,
     "TRTCAudioQualityMusic": 3
 }
+
+/**
+ * Log 级别
+ * @type {{
+ * TRTCLogLevelError: number,输出所有级别的 Log
+ * TRTCLogLevelDebug: number,输出 DEBUG，INFO，WARNING，ERROR 和 FATAL 级别的 Log
+ * TRTCLogLevelInfo: number,输出 INFO，WARNING，ERROR 和 FATAL 级别的 Log
+ * TRTCLogLevelFatal: number,只输出WARNING，ERROR 和 FATAL 级别的 Log
+ * TRTCLogLevelNone: number,只输出ERROR 和 FATAL 级别的 Log
+ * TRTCLogLevelWarn: number,只输出 FATAL 级别的 Log
+ * TRTCLogLevelVerbose: number 不输出任何 SDK Log
+ * }}
+ */
+export const LogLevel = {
+    "TRTCLogLevelVerbose": 0,
+    "TRTCLogLevelDebug": 1,
+    "TRTCLogLevelInfo": 2,
+    "TRTCLogLevelWarn": 3,
+    "TRTCLogLevelError": 4,
+    "TRTCLogLevelFatal": 5,
+    "TRTCLogLevelNone": 6
+}

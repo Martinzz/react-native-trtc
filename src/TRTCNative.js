@@ -34,6 +34,47 @@ export default class TRTCNative {
     }
 
     /**
+     * 设置 Log 输出级别
+     * @param level
+     */
+    static setLogLevel(level){
+        RTCTencent.setLogLevel(level);
+    }
+
+    /**
+     * 启用或禁用控制台日志打印
+     * @param enable 指定是否启用，默认为禁止状态
+
+     */
+    static setConsoleEnabled(enable){
+        RTCTencent.setConsoleEnabled(enable);
+    }
+
+    /**
+     * 启用或禁用 Log 的本地压缩。
+     * @param enable 指定是否启用，默认为启动状态
+     */
+    static setLogCompressEnabled(enable){
+        RTCTencent.setLogCompressEnabled(enable);
+    }
+
+    /**
+     * 修改日志保存路径
+     * @param path
+     * ios 日志文件默认保存在 sandbox Documents/log 下，如需修改，必须在所有方法前调用。
+     * android 日志文件默认保存在 /app私有目录/files/log/tencent/liteav/ 下，如需修改, 必须在所有方法前调用，并且保证目录存在及应用有目录的读写权限。
+     */
+    static setLogDirPath(path){
+        RTCTencent.setLogDirPath(path);
+    }
+
+    /**
+     * 获取 SDK 版本信息
+     */
+    static getSDKVersion(){
+        return RTCTencent.getSDKVersion();
+    }
+    /**
      * 添加事件
      * @param event
      * @param listener

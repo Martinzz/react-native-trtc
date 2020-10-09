@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useRef } from "react";
 import TRTCEngine, {
     TRTCLocalView, Scene, Role, RenderMode,
-    VideoRotation, TRTCRemoteView, VideoResolution
+    VideoRotation, TRTCRemoteView, VideoResolution, LogLevel
 } from 'rn-trtc';
 import {StyleSheet, View, TouchableOpacity, Text, SafeAreaView} from "react-native";
 
@@ -22,6 +22,7 @@ const Example = () => {
     }
 
     useEffect(()=>{
+        TRTCEngine.setLogLevel(LogLevel.TRTCLogLevelInfo); // 设置日志级别
         // init
         const engine = TRTCEngine.create({
             videoResolution: VideoResolution.TRTC_VIDEO_RESOLUTION_120_120,

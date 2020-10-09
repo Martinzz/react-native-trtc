@@ -32,8 +32,16 @@ TRTCRemoteView 显示远程视频流
 ```js
 import React, { Component, useEffect, useRef } from "react";
 import TRTCEngine, {
-    TRTCLocalView, Scene, Role, VideoRotation, TRTCRemoteView, VideoResolution
+    TRTCLocalView, 
+    Scene, 
+    Role, 
+    VideoRotation, 
+    TRTCRemoteView, 
+    LogLevel,
+    VideoResolution
 } from 'rn-trtc';
+
+TRTCEngine.setLogLevel(LogLevel.TRTCLogLevelNone); // 设置日志级别
 
 // 初始化，参数参照官方文档
 const engine = TRTCEngine.create({

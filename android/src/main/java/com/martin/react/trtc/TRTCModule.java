@@ -435,4 +435,25 @@ public class TRTCModule extends ReactContextBaseJavaModule {
     public void setAudioQuality(int quality) {
         mTRTCCloud.setAudioQuality(quality);
     }
+
+    @ReactMethod
+    public void getSDKVersion(Promise promise) {
+        promise.resolve(TRTCCloud.getSDKVersion());
+    }
+    @ReactMethod
+    public void setLogLevel(int level) {
+        TRTCCloud.setLogLevel(level);
+    }
+    @ReactMethod
+    public void setConsoleEnabled(boolean enabled) {
+        TRTCCloud.setConsoleEnabled(enabled);
+    }
+    @ReactMethod
+    public void setLogCompressEnabled(boolean enabled) {
+        TRTCCloud.setLogCompressEnabled(enabled);
+    }
+    @ReactMethod
+    public void setLogDirPath(String path) {
+        TRTCCloud.setLogDirPath(path);
+    }
 }

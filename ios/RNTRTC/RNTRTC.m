@@ -31,6 +31,21 @@ RCT_EXPORT_MODULE(RTCTencent);
     [self sendEventWithName:evtName body:params];
   }
 }
+RCT_EXPORT_METHOD(setLogLevel:(int)level){
+    [TRTCCloud setLogLevel:level];
+}
+RCT_EXPORT_METHOD(setConsoleEnabled:(BOOL)enabled){
+    [TRTCCloud setConsoleEnabled:enabled];
+}
+RCT_EXPORT_METHOD(setLogCompressEnabled:(BOOL)enabled){
+    [TRTCCloud setLogCompressEnabled:enabled];
+}
+RCT_EXPORT_METHOD(setLogDirPath:(NSString*)path){
+    [TRTCCloud setLogDirPath:path];
+}
+RCT_EXPORT_METHOD(getSDKVersion:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    resolve([TRTCCloud getSDKVersion]);
+}
 /**
  初始化
  */

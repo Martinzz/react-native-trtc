@@ -68,9 +68,9 @@ const Example = () => {
         });
         // enter room
         engine.enterRoom({
-            sdkAppId: sdkAppId,
-            userId: userId,
-            roomId: roomId,
+            sdkAppId: sdkAppId,  // number类型
+            userId: userId,   // string 类型
+            roomId: roomId, // number 类型
             userSig: userSig,
             role: Role.TRTCRoleAudience, // 加入房间的角色
         }, Scene.TRTC_APP_SCENE_LIVE)

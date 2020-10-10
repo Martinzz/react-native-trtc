@@ -8,7 +8,7 @@
 
 基于腾讯实时音视频（TRTC）最新SDK React Native 组件基本封装完成，同时支持IOS和Android
 
-没有实现全部API的封装，有很小部分不常用功能尚未实现
+没有实现全部API的封装，有很少部分不常用功能尚未实现
 
 后续有时间会继续完善
 
@@ -28,7 +28,7 @@ TRTCRemoteView 显示远程视频流
 需要在加入房间后render
 
 * [Example](https://github.com/Martinzz/react-native-trtc/blob/master/example.js)
-
+* [腾讯实时音视频服务](https://cloud.tencent.com/product/trtc)
 ```js
 import React, { Component, useEffect, useRef } from "react";
 import TRTCEngine, {
@@ -91,7 +91,7 @@ engine.startLocalAudio();
 ```
 
 ## 官方API文档
-
+* [UserSig 相关问题](https://cloud.tencent.com/document/product/647/17275)
 * [TRTC API](https://cloud.tencent.com/document/product/647/32258)
 
 

@@ -60,6 +60,15 @@ public class TRTCModule extends ReactContextBaseJavaModule {
             map.putBoolean("available", available);
             sendEvent(getReactApplicationContext(), TRTC_onUserVideoAvailable, map);
         }
+
+        @Override
+        public void onUserSubStreamAvailable(String userId, boolean available) {
+            WritableMap map = Arguments.createMap();
+            map.putString("userId", userId);
+            map.putBoolean("available", available);
+            sendEvent(getReactApplicationContext(), TRTC_onUserSubStreamAvailable, map);
+        }
+
         @Override
         public void onFirstAudioFrame(String userId) {
             WritableMap map = Arguments.createMap();

@@ -12,6 +12,7 @@ public class TRTCConst {
     public final static String TRTC_onRemoteUserEnterRoom = "onRemoteUserEnterRoom";
     public final static String TRTC_onRemoteUserLeaveRoom = "onRemoteUserLeaveRoom";
     public final static String TRTC_onUserVideoAvailable = "onUserVideoAvailable";
+    public final static String TRTC_onUserSubStreamAvailable = "onUserSubStreamAvailable";
     public final static String TRTC_onUserAudioAvailable = "onUserAudioAvailable";
     public final static String TRTC_onFirstVideoFrame = "onFirstVideoFrame";
     public final static String TRTC_onFirstAudioFrame = "onFirstAudioFrame";

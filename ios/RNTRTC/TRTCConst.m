@@ -28,6 +28,7 @@ static TRTCConst *_person;
         TRTC_onRemoteUserLeaveRoom,
         TRTC_onUserVideoAvailable,
         TRTC_onUserAudioAvailable,
+        TRTC_onUserSubStreamAvailable,
         TRTC_onFirstVideoFrame,
         TRTC_onFirstAudioFrame,
         TRTC_onSendFirstLocalVideoFrame,

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define TRTC_onRemoteUserEnterRoom @"onRemoteUserEnterRoom"
 #define TRTC_onRemoteUserLeaveRoom @"onRemoteUserLeaveRoom"
 #define TRTC_onUserVideoAvailable @"onUserVideoAvailable"
+#define TRTC_onUserSubStreamAvailable @"onUserSubStreamAvailable"
 #define TRTC_onUserAudioAvailable @"onUserAudioAvailable"
 #define TRTC_onFirstVideoFrame @"onFirstVideoFrame"
 #define TRTC_onFirstAudioFrame @"onFirstAudioFrame"

@@ -328,6 +328,14 @@ RCT_EXPORT_METHOD(switchCamera){
         @"available": @(available)
     }];
 }
+
+-(void)onUserSubStreamAvailable:(NSString *)userId available:(BOOL)available{
+    [self sendEvent:TRTC_onUserSubStreamAvailable params:@{
+        @"userId": userId,
+        @"available": @(available)
+    }];
+}
+
 - (void)onUserAudioAvailable:(NSString *)userId available:(BOOL)available{
     [self sendEvent:TRTC_onUserAudioAvailable params:@{
         @"userId": userId,

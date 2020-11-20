@@ -23,6 +23,10 @@ RCT_CUSTOM_VIEW_PROPERTY(renderMode, NSInteger, TRTCVideoView) {
 RCT_CUSTOM_VIEW_PROPERTY(mirrorMode, NSInteger, TRTCVideoView) {
     view.mirrorMode = [RCTConvert NSInteger:json];
 }
+RCT_CUSTOM_VIEW_PROPERTY(isSubStream, BOOL, TRTCVideoView){
+    view.isSubStream =[RCTConvert BOOL:json];
+}
+
 - (UIView *)view {
     return [TRTCVideoView new];
 }

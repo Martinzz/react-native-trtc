@@ -33,7 +33,13 @@
 -(void)setUid:(NSString *)uid {
     _uid = uid;
     if(![@"" isEqual: uid]){
-        [self.rtcEngine startRemoteView:uid view:self];
+        if(self.isSubStream ==true){
+            [self.rtcEngine startRemoteSubStreamView:uid view:self];
+        }else{
+            [self.rtcEngine startRemoteView:uid view:self];
+        }
+
+       
     }else{
         [self.rtcEngine startLocalPreview: YES view:self];
     }

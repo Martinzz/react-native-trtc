@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger mode;
 @property (nonatomic, assign) NSInteger mirrorMode;
 @property (strong, nonatomic) TRTCCloud *rtcEngine;
+@property (nonatomic) BOOL isSubStream;
 
 @end
 

@@ -18,6 +18,7 @@ public class TRTCVideoView extends FrameLayout {
 
     private boolean mLayoutEnqueued = false;
     private TXCloudVideoView surface;
+    private boolean _isSubStream=false;
     public TRTCVideoView(Context context) {
         super(context);
         surface = new TXCloudVideoView(context);
@@ -52,11 +53,21 @@ public class TRTCVideoView extends FrameLayout {
     public void setUid(String userId){
         surface.setUserId(userId);
         if(!"".equals(userId)){
-            getEngine().startRemoteView(userId, surface);
+            if(_isSubStream){
+                getEngine().startRemoteSubStreamView(userId,surface);
+            }else{
+                getEngine().startRemoteView(userId, surface);
+            }
+
         }else{
             getEngine().startLocalPreview(true, surface);
         }
     }
+
+    public void setIsSubStream(Boolean isSubStream){
+        _isSubStream =isSubStream;
+    }
+
     public void setRenderMode(int renderMode){
         String userId = surface.getUserId();
         if("".equals(userId)){

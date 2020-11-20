@@ -8,8 +8,8 @@ const TRTCView = memo((props)=>{
     )
 })
 TRTCView.propTypes = {
-    uid: PropTypes.string.isRequired,
-    isSubStream:PropTypes.boolean,
+    uid: PropTypes.string,
+    subUid:PropTypes.string,
     renderMode: PropTypes.number,
     style: PropTypes.any,
 }

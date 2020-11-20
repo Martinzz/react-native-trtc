@@ -18,7 +18,7 @@ public class TRTCVideoView extends FrameLayout {
 
     private boolean mLayoutEnqueued = false;
     private TXCloudVideoView surface;
-    private boolean _isSubStream=false;
+    private Boolean isSub =false;
     public TRTCVideoView(Context context) {
         super(context);
         surface = new TXCloudVideoView(context);
@@ -53,19 +53,16 @@ public class TRTCVideoView extends FrameLayout {
     public void setUid(String userId){
         surface.setUserId(userId);
         if(!"".equals(userId)){
-            if(_isSubStream){
-                getEngine().startRemoteSubStreamView(userId,surface);
-            }else{
-                getEngine().startRemoteView(userId, surface);
-            }
-
+             getEngine().startRemoteView(userId, surface);
         }else{
             getEngine().startLocalPreview(true, surface);
         }
     }
 
-    public void setIsSubStream(Boolean isSubStream){
-        _isSubStream =isSubStream;
+    public void setSubUid(String subUid){
+        isSub=true
+        surface.setUserId(subUid);
+        getEngine().setRemoteSubStreamViewRotation(subUid,surface);
     }
 
     public void setRenderMode(int renderMode){
@@ -73,7 +70,12 @@ public class TRTCVideoView extends FrameLayout {
         if("".equals(userId)){
             getEngine().setLocalViewFillMode(renderMode);
         }else{
-            getEngine().setRemoteViewFillMode(userId, renderMode);
+            if(isSub){
+                getEngine().setRemoteAudioVolume(userId,renderMode);
+            }else{
+                getEngine().setRemoteViewFillMode(userId, renderMode);
+            }
+
         }
     }
 
@@ -86,7 +88,12 @@ public class TRTCVideoView extends FrameLayout {
         if("".equals(userId)){
             getEngine().stopLocalPreview();
         }else{
-            getEngine().stopRemoteView(userId);
+            if(isSub){
+                getEngine().stopRemoteSubStreamView(userId);
+            }else{
+                getEngine().stopRemoteView(userId);
+            }
+
         }
     }
 }

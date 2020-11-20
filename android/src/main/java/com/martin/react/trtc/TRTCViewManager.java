@@ -40,9 +40,9 @@ public class TRTCViewManager extends SimpleViewManager<TRTCVideoView> {
     public void setUid(final TRTCVideoView trtcVideoView, final String uid) {
         trtcVideoView.setUid(uid);
     }
-    @ReactProp(name = "uid")
-    public void setIsSubStream(final TRTCVideoView trtcVideoView, final Boolean isSubStream) {
-        trtcVideoView.setIsSubStream(isSubStream);
+    @ReactProp(name = "subUid")
+    public void setSubUid(final TRTCVideoView trtcVideoView, final String subUid) {
+        trtcVideoView.setSubUid(subUid);
     }
 
 }

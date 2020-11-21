@@ -51,20 +51,20 @@
     }
 }
 
--(void) willMoveToSuperview:(UIView *)newSuperview {
-  [super willMoveToSuperview:newSuperview];
-  if (!newSuperview) {
-    if([@"" isEqual: _uid]&[@"" isEqual:_subUid]){
-        [self.rtcEngine stopLocalPreview];
-    }else{
-        if([_subUid isEqual:@""]){
-            [self.rtcEngine stopRemoteView:_subUid];
-        }else{
-
-            [self.rtcEngine stopRemoteSubStreamView:_uid];
-        }
-
-    }
-  }
-}
+// -(void) willMoveToSuperview:(UIView *)newSuperview {
+//   [super willMoveToSuperview:newSuperview];
+//   if (!newSuperview) {
+//     if([@"" isEqual: _uid]&[@"" isEqual:_subUid]){
+//         [self.rtcEngine stopLocalPreview];
+//     }else{
+//         if([_subUid isEqual:@""]){
+//             [self.rtcEngine stopRemoteView:_subUid];
+//         }else{
+//
+//             [self.rtcEngine stopRemoteSubStreamView:_uid];
+//         }
+//
+//     }
+//   }
+// }
 @end

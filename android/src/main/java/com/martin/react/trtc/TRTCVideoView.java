@@ -87,13 +87,6 @@ public class TRTCVideoView extends FrameLayout {
         String userId = surface.getUserId();
         if("".equals(userId)){
             getEngine().stopLocalPreview();
-        }else{
-            if(isSub){
-                getEngine().stopRemoteSubStreamView(userId);
-            }else{
-                getEngine().stopRemoteView(userId);
-            }
-
         }
     }
 }

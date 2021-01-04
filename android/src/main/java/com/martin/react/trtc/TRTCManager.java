@@ -97,7 +97,7 @@ public class TRTCManager {
         this.mTRTCCloud.startLocalAudio();
     }
     public void stopLocalAudio(){
-        this.mTRTCCloud.startLocalAudio();
+        this.mTRTCCloud.stopLocalAudio();
     }
 
     public void exitRoom(){

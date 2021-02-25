@@ -26,5 +26,5 @@ android {
 
 dependencies {
     implementation "com.facebook.react:react-native:+"
-    implementation 'com.tencent.liteav:LiteAVSDK_TRTC:latest.release'
+    implementation 'com.tencent.liteav:LiteAVSDK_TRTC:8.4.9947'
 }
